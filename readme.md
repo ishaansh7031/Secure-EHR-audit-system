@@ -104,7 +104,5 @@ entities only.
 - Constant-time comparisons used where applicable
 - Tamper simulation is explicitly isolated and documented
 
----
 
-## Repository Structure
 
