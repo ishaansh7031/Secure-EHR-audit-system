@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Verify Access</title></head>
+<body>
+    <h1>ZKP Verification Result</h1>
+    {% if result %}
+        <p style="color:green"> Verification successful: The user proved access.</p>
+    {% else %}
+        <p style="color:red"> Verification failed: The proof was invalid.</p>
+    {% endif %}
+
+    <br><br>
+    <button onclick="window.location.href='/auditor-dashboard'">Back to Auditor Dashboard</button>
+</body>
+</html>

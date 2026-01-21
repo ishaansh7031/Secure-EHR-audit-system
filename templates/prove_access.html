@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><title>Prove Access</title></head>
+<body>
+    <h1>Zero-Knowledge Proof of Access</h1>
+
+    <h3>Public Proof Submitted:</h3>
+    <pre>{{ proof | tojson(indent=2) }}</pre>
+
+    <form method="POST" action="/submit-proof">
+        <textarea name="proof" style="display:none;">{{ proof | tojson }}</textarea>
+        <button type="submit">Submit Proof to Auditor</button>
+    </form>
+
+    <br>
+    <button onclick="window.location.href='/dashboard'">Back</button>
+</body>
+</html>

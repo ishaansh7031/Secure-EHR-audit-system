@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Printable EHR</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        .no-data { color: red; }
+        .print-btn { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Your Printable EHR Records</h1>
+
+    {% if records %}
+        <button onclick="window.print()" class="print-btn"> Print This Page</button>
+
+        <table>
+            <tr>
+                <th>Timestamp</th>
+                <th>EHR Data</th>
+            </tr>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.get('timestamp', 'N/A') }}</td>
+                <td>{{ record.get('ehr', '[Decryption Error]') }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p class="no-data">No EHR records found.</p>
+    {% endif %}
+
+    <form action="/dashboard" method="get">
+        <button type="submit">Back to Dashboard</button>
+    </form>
+</body>
+</html>

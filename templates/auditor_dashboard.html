@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auditor Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #444;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            font-size: 16px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        tr.tampered {
+            background-color: #ffcccc;
+        }
+
+        tr.normal {
+            background-color: white;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            display: inline;
+        }
+
+        textarea {
+            width: 80%;
+            margin: 10px auto;
+            display: block;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Auditor Dashboard</h1>
+
+    <h2>Complete Audit Trail</h2>
+        <table border="1">
+        <tr>
+            <th>User ID</th>
+            <th>Action</th>
+            <th>Details</th>
+            <th>Timestamp</th>
+            <th>EHR Integrity</th> 
+        </tr>
+        {% for idx in range(records|length) %}
+        <tr class="{{ 'tampered' if integrity[idx] == 'Tampered' else 'normal' }}">
+            <td>{{ records[idx].get('user_id', 'N/A') }}</td>
+            <td>{{ records[idx].get('event', records[idx].get('action', {}).get('event', 'N/A')) }}</td>
+            <td>{{ records[idx].get('data', records[idx].get('action', {}).get('data', 'N/A')) }}</td>
+            <td>{{ records[idx].get('timestamp', records[idx].get('action', {}).get('timestamp', 'N/A')) }}</td>
+            <td>{{ integrity[idx] }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    
+
+    <button onclick="window.location.href='/audit-query'">Query Logs</button>
+
+
+    <br><br>
+    <h2>Submitted ZK Proofs</h2>
+    <table border="1">
+        <tr>
+            <th>User ID</th>
+            <th>Submitted At</th>
+            <th>Proof</th>
+            <th>Actions</th>
+        </tr>
+        {% for proof in proofs %}
+        <tr>
+            <td>{{ proof.user_id }}</td>
+            <td>{{ proof.timestamp }}</td>
+            <td><pre style="white-space: pre-wrap;">{{ proof.proof }}</pre></td>
+            <td>
+                <form method="POST" action="/verify-access" style="display:inline;">
+                    <textarea name="proof" style="display:none;">{{ proof.proof }}</textarea>
+                    <button type="submit">Verify</button>
+                </form>
+                <form method="POST" action="/delete-proof/{{ proof.id }}" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this proof?')">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br><br>
+    <button onclick="window.location.href='/logout'">Log out</button>
+</body>
+</html>

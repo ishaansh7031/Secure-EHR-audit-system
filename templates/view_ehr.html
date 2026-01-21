@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+<head>
+    <meta charset="UTF-8">
+    <title>View EHR</title>
+</head>
+<body>
+    <h1>Your Encrypted EHR Records</h1>
+
+    {% if records %}
+    <table border="1">
+        <tr>
+            <th>Timestamp</th>
+            <th>EHR Data</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.timestamp }}</td>
+            <td>{{ record.ehr }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No EHR records found.</p>
+    {% endif %}
+
+    <br><br>
+    <button onclick="window.location.href='/dashboard'">Back to Dashboard</button>
+</body>
+</html>

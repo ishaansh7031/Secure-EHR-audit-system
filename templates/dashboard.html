@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to your User Dashboard</h1>
+
+    <!-- Form to create EHR -->
+    <form action="/store-ehr" method="get" style="display:inline;">
+        <button type="submit">Create EHR data</button>
+    </form>
+
+    <!-- Other actions as links/buttons -->
+    <form action="/delete-ehr" method="get" style="display:inline;">
+        <button type="submit">Delete EHR data</button>
+    </form>
+
+    <form action="/change-ehr" method="get" style="display:inline;">
+        <button type="submit">Modify EHR data</button>
+    </form>
+
+    <form action="/query-ehr" method="post" style="display:inline;">
+        <button type="submit">Query EHR data</button>
+    </form>
+
+    <form action="/print-ehr" method="get" style="display:inline;">
+        <button type="submit">Print EHR data</button>
+    </form>
+
+    <form action="/copy-ehr" method="get" style="display:inline;">
+        <button type="submit">Copy EHR data</button>
+    </form>
+
+    <form action="/view-ehr" method="get" style="display:inline;">
+        <button type="submit">View My EHR</button>
+    </form>
+
+    <form action="/prove-access" method="get" style="display:inline;">
+        <button type="submit">Generate ZKP</button>
+    </form>
+
+    <!-- Logout -->
+    <form action="/logout" method="get" style="display:inline;">
+        <button type="submit">Log out</button>
+    </form>
+</body>
+</html>

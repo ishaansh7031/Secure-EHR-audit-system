@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify EHR</title>
+</head>
+<body>
+    <h1>Modify EHR Entry</h1>
+
+    {% if ehrs %}
+    <form method="POST" action="/change-ehr">
+        <label for="ehr_id">Select EHR to modify:</label>
+        <select name="ehr_id" required>
+            {% for ehr in ehrs %}
+                <option value="{{ ehr.id }}">EHR ID {{ ehr.id }} - {{ ehr.timestamp }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="ehr_change">New EHR Data:</label><br>
+        <textarea name="ehr_change" rows="5" cols="50" required></textarea>
+        <br><br>
+
+        <button type="submit">Submit Changes</button>
+    </form>
+    {% else %}
+    <p>No EHR records found to modify.</p>
+    {% endif %}
+
+    <br><br>
+    <form action="/dashboard" method="get">
+        <button type="submit">Back to Dashboard</button>
+    </form>
+</body>
+</html>

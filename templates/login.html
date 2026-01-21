@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Login | EHR Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Patient Medical Records Portal</h1>
+    <h2>Login</h2>
+
+    <form id="login" action="/login" method="POST" class="flex-container">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <label for="role">Login as:</label><br>
+        <input type="radio" id="patient" name="role" value="patient" checked>
+        <label for="patient">Patient</label><br>
+        <input type="radio" id="auditor" name="role" value="auditor">
+        <label for="auditor">Auditor</label><br><br>
+
+        <button class="button" type="submit" style="border-left: 2px solid #e8dfdf7a">Login</button>
+        <button class="button" type="reset" style="border-left: 2px solid #e8dfdf7a">Clear</button>
+    </form>
+
+    <a href="/signup">Don't have an account? Sign up here.</a>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your EHR Audit History</title>
+</head>
+<body>
+    <h1>Your EHR Audit History</h1>
+
+    {% if records %}
+    <table border="1">
+        <tr>
+            <th>User ID</th>
+            <th>Action</th>
+            <th>Details</th>
+            <th>Timestamp</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.get('user_id', 'N/A') }}</td>
+            <td>{{ record.get('event', record.get('action', {}).get('event', 'N/A')) }}</td>
+            <td>{{ record.get('data', record.get('action', {}).get('data', 'N/A')) }}</td>
+            <td>{{ record.get('timestamp', record.get('action', {}).get('timestamp', 'N/A')) }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No audit records found.</p>
+    {% endif %}
+
+    <br><br>
+    <form action="/dashboard" method="get">
+        <button type="submit">Back to Dashboard</button>
+    </form>
+</body>
+</html>

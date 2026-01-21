@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete EHR</title>
+</head>
+<body>
+    <h1>Delete EHR Entry</h1>
+
+    {% if ehrs %}
+    <form method="POST" action="/delete-ehr">
+        <label for="ehr_id">Select EHR to delete:</label>
+        <select name="ehr_id" required>
+            {% for ehr in ehrs %}
+                <option value="{{ ehr.id }}">EHR ID {{ ehr.id }} - {{ ehr.timestamp }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button type="submit">Delete Selected EHR</button>
+    </form>
+    {% else %}
+    <p>No EHR entries available for deletion.</p>
+    {% endif %}
+
+    <br><br>
+    <form action="/dashboard" method="get">
+        <button type="submit">Back to Dashboard</button>
+    </form>
+</body>
+</html>
